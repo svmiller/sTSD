@@ -1,0 +1,18 @@
+Package: sTSD
+Type: Package
+Title: Simulate Time Series Diagnostics
+Version: 0.1.0
+Author: Steven V. Miller
+Maintainer: Steven V. Miller <steve@svmiller.com>
+Description: This package allows users to do time series diagnostics, primarily
+    tests of unit root, by way of simulation. While there is nothing necessarily
+    wrong with the received wisdom of critical values generated decades ago, 
+    simulation provides its own perks. Not only is simulation broadly informative
+    as to what these various test statistics do and what are their plausible 
+    values, simulation provides more flexibility for assessing unit root by way
+    of different thresholds or different hypothesized distributions.
+License: GPL (>=2)
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.6.0)
+RoxygenNote: 7.3.2
