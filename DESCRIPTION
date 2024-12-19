@@ -2,7 +2,10 @@ Package: sTSD
 Type: Package
 Title: Simulate Time Series Diagnostics
 Version: 0.1.0
-Author: Steven V. Miller
+Authors@R: person("Steve", "Miller",
+                  email = "steven.v.miller@gmail.com", 
+                  role = c("aut", "cre"),
+                  comment = c(ORCID = "0000-0003-4072-6263"))
 Maintainer: Steven V. Miller <steve@svmiller.com>
 Description: This package allows users to do time series diagnostics, primarily
     tests of unit root, by way of simulation. While there is nothing necessarily
