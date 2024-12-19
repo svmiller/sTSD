@@ -100,7 +100,7 @@ statistics.
 a <- rnorm(25) # white noise
 b <- cumsum(a) # random walk
 
-spp_test(a, n_sims = 25, interpret = FALSE)
+spp_test(a, n_sims = 25)
 spp_test(b, n_sims = 25)
 
 }

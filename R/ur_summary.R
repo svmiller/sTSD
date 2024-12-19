@@ -1,0 +1,125 @@
+#' Summarize Unit Root Test Simulations
+#'
+#' @description \code{ur_summary()} provides a summary of the unit root tests
+#' included in this package.
+#'
+#' @details This function makes ample use of the "attributes" element in the
+#' list produced by the unit root simulations.
+#'
+#' @return \code{ur_summary()} produces console output that offers a summary
+#' assessment about the presence of a unit root based on your simulations.
+#'
+#' @author Steven V. Miller
+#' @param obj the object to be summarized, of class 'spp_test'
+#' @param pp_stat the statistic to be summarized: either "tau" or "rho"
+#' @param ... additional argument, currently ignored
+#' @export
+ur_summary <- function(obj, pp_stat = "tau",
+                       ...) {
+
+  if (!pp_stat %in% c("tau", "rho") | length(pp_stat) > 1) {
+    stop("The only 'pp_stat' arguments that make sense in this context is 'tau' or 'rho'. Pick one of the two.")
+  }
+
+  if(pp_stat == "tau") {
+    stat_lab <- "tau"
+    sim_hyp <- obj$attributes$sim_hyp
+
+    tau_stats <- obj$stats[1:3, 2]
+
+    #sorted_type <- sort(unique(obj$sims$cat))
+
+    tau_results <- do.call(rbind, with(obj$sims, {
+      lapply(split(z_tau, cat), function(x) {
+        data.frame(
+          mean = mean(x),
+          lwr01 = quantile(x, 0.01),
+          lwr05 = quantile(x, .05),
+          lwr10 = quantile(x, .10),
+          upr90 = quantile(x, 0.9),
+          upr95 = quantile(x, 0.95),
+          upr99 = quantile(x, .99)
+        )
+      })
+    }))
+    tau_results$type <- rownames(tau_results)
+    #tau_results$type <- sorted_type
+    rownames(tau_results) <- NULL
+
+    if(sim_hyp == "nonstationary") {
+      sum1 <- paste0("Potential thresholds for your consideration: ", round(subset(tau_results, tau_results$type == "No Drift, No Trend")[1, 2], 3), " (1%); ",
+                     round(subset(tau_results, tau_results$type == "No Drift, No Trend")[1, 3], 3), " (5%); ",
+                     round(subset(tau_results, tau_results$type == "No Drift, No Trend")[1, 4], 3), " (10%)")
+
+      sum2 <- paste0("Potential thresholds for your consideration: ", round(subset(tau_results, tau_results$type == "Drift, No Trend")[1, 2], 3), " (1%); ",
+                     round(subset(tau_results, tau_results$type == "Drift, No Trend")[1, 3], 3), " (5%); ",
+                     round(subset(tau_results, tau_results$type == "Drift, No Trend")[1, 4], 3), " (10%)")
+
+      sum3 <- paste0("Potential thresholds for your consideration: ", round(subset(tau_results, tau_results$type == "Drift and Trend")[1, 2], 3), " (1%); ",
+                     round(subset(tau_results, tau_results$type == "Drift and Trend")[1, 3], 3), " (5%); ",
+                     round(subset(tau_results, tau_results$type == "Drift and Trend")[1, 4], 3), " (10%)")
+
+      guide <- paste0("These thresholds are the results of ", obj$attributes$n_sims, " different simulations of a non-stationary time series matching your time series description (n = ",
+                      obj$attributes$n, ", lags = ", obj$attributes$lags,"). If your ",stat_lab,
+                      " is more negative than one of these thresholds of interest, that is incompatible with a non-stationary time series and more compatible with a stationary time series.")
+
+      ifnot <- paste0("If this is not the case, what you see is implying your time series is non-stationary.")
+
+    } else { # sims are stationary...
+      sum1 <- paste0("Potential thresholds for your consideration: ", round(subset(tau_results, tau_results$type == "No Drift, No Trend")[1, 5], 3), " (90%); ",
+                     round(subset(tau_results, tau_results$type == "No Drift, No Trend")[1, 6], 3), " (95%); ",
+                     round(subset(tau_results, tau_results$type == "No Drift, No Trend")[1, 7], 3), " (99%); ")
+
+      sum2 <- paste0("Potential thresholds for your consideration: ", round(subset(tau_results, tau_results$type == "Drift, No Trend")[1, 5], 3), " (90%); ",
+                     round(subset(tau_results, tau_results$type == "Drift, No Trend")[1, 6], 3), " (95%); ",
+                     round(subset(tau_results, tau_results$type == "Drift, No Trend")[1, 7], 3), " (99%)")
+
+      sum3 <- paste0("Potential thresholds for your consideration: ", round(subset(tau_results, tau_results$type == "Drift and Trend")[1, 5], 3), " (90%); ",
+                     round(subset(tau_results, tau_results$type == "Drift and Trend")[1, 6], 3), " (95%); ",
+                     round(subset(tau_results, tau_results$type == "Drift and Trend")[1, 7], 3), " (99%)")
+
+      guide <- paste0("These thresholds are the results of ", obj$attributes$n_sims, " different simulations of a pure white noise time series matching your time series description (n = ",
+                      obj$attributes$n, ", lags = ", obj$attributes$lags,"). If your ",stat_lab,
+                      " is more negative than one of these thresholds of interest, that is consistent with a distribution of statistics that could be generated by pure white noise.")
+
+      ifnot <- paste0("If this is not the case, what you see is implying your time series is non-stationary.")
+
+    }
+
+    cat("------------------------------------------","\n")
+    cat("* Simulated Phillips-Perron Test Summary *","\n")
+    cat("------------------------------------------","\n")
+    cat("Simulated test statistics are calculated on time series that are:", sim_hyp,"\n")
+    cat("Length of time series: ", obj$attributes$n, ". Lags: ", obj$attributes$lags, "\n\n", sep="")
+    cat("Type 1: no drift, no trend","\n")
+    cat("--------------------------\n")
+    cat("Your ", stat_lab,": ", round(tau_stats[1], 3),
+        sep="", "\n")
+    cat(sum1)
+    cat("\n\n")
+    cat("Type 2: drift, no trend\n")
+    cat("-----------------------\n")
+    cat("Your ", stat_lab,": ", round(tau_stats[2], 3),
+        sep="", "\n")
+    cat(sum2)
+    cat("\n\n")
+    cat("Type 3: drift and trend\n")
+    cat("-----------------------\n")
+    cat("Your ", stat_lab,": ", round(tau_stats[3], 3),
+        sep="", "\n")
+    cat(sum3)
+    cat("\n\n\n")
+    cat("--------------------------------------------------------------\n")
+    cat("* Guides to help you assess stationarity or non-stationarity *", "\n")
+    cat("--------------------------------------------------------------\n")
+    cat(guide)
+    cat("\n\n")
+    cat(ifnot)
+    cat("\n\n")
+    cat("Please refer to the raw output for the simulations for other means of assessment/summary.")
+
+
+  }
+
+
+}
