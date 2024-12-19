@@ -13,3 +13,7 @@ This is a new package of mine that I want as an initial development offering of 
 ## Feedback to CRAN upon Initial Rejection
 
 The `Author:` field was non-compliant with CRAN guidelines. This one is compliant.
+
+## Feedback to CRAN upon Second Rejection
+
+I scrubbed the redundancy in the description field and fixed the discrepancy in the author and maintainer fields.
