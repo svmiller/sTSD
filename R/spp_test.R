@@ -71,18 +71,18 @@
 #' "short-term" lag is used for the Phillips-Perron test. If \code{FALSE}, the
 #' "long-term" lag is used.
 #' @param n_sims the number of simulations for calculating an interval or
-#' distribution of test statistics of a white-noise time series. Defaults to
-#' 1,000.
+#' distribution of test statistics for assessing stationarity or
+#' non-stationarity. Defaults to 1,000.
 #' @param sim_hyp can be either "stationary" or "nonstationary". If
-#' "stationary" (the default), the function runs Phillips-Perron tests on
-#' simulated stationary (pure white noise) data. This allows the user to assess
+#' "stationary", the function runs Phillips-Perron tests on simulated stationary
+#' (pure white noise) data. This allows the user to assess
 #' compatibility/plausibility of the test statistic against a distribution of
 #' test statistics that are known to be pure white noise (in expectation). If
-#' "nonstationary", the function generates three different data sets of a pure
-#' random walk, a random walk with a drift, and a random walk with a drift and
-#' trend. It then runs Phillips-Perron tests on all those. This allows the user
-#' to assess the compatibility/plausibility of their test statistics with data
-#' that are known to be nonstationary in some form.
+#' "nonstationary" (default), the function generates three different data sets
+#' of a pure random walk, a random walk with a drift, and a random walk with a
+#' drift and trend. It then runs Phillips-Perron tests on all those. This allows
+#' the user to assess the compatibility/plausibility of their test statistics
+#' with data that are known to be nonstationary in some form.
 #'
 #' @examples
 #'
@@ -102,9 +102,6 @@
 spp_test <- function(x, lag_short = TRUE, n_sims = 1000,
                      sim_hyp = "nonstationary") {
 
-  # if (!pp_stat %in% c("tau", "rho") | length(pp_stat) > 1) {
-  #   stop("The only 'pp_stat' arguments that make sense in this context is 'tau' or 'rho'. Pick one of the two.")
-  # }
 
   if(!sim_hyp %in% c("stationary", "nonstationary")) {
     stop("The 'sim_hyp' argument must be 'stationary' or 'nonstationary'.")
@@ -251,7 +248,8 @@ spp_test <- function(x, lag_short = TRUE, n_sims = 1000,
   attatt <- data.frame(lags = q,
                        sim_hyp = sim_hyp,
                        n_sims = n_sims,
-                       n = length(x))
+                       n = length(x),
+                       test = "pp")
 
   output <- list("stats" = Stats,
                  "sims" = Sims,

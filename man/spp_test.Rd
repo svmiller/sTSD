@@ -14,19 +14,19 @@ spp_test(x, lag_short = TRUE, n_sims = 1000, sim_hyp = "nonstationary")
 "long-term" lag is used.}
 
 \item{n_sims}{the number of simulations for calculating an interval or
-distribution of test statistics of a white-noise time series. Defaults to
-1,000.}
+distribution of test statistics for assessing stationarity or
+non-stationarity. Defaults to 1,000.}
 
 \item{sim_hyp}{can be either "stationary" or "nonstationary". If
-"stationary" (the default), the function runs Phillips-Perron tests on
-simulated stationary (pure white noise) data. This allows the user to assess
+"stationary", the function runs Phillips-Perron tests on simulated stationary
+(pure white noise) data. This allows the user to assess
 compatibility/plausibility of the test statistic against a distribution of
 test statistics that are known to be pure white noise (in expectation). If
-"nonstationary", the function generates three different data sets of a pure
-random walk, a random walk with a drift, and a random walk with a drift and
-trend. It then runs Phillips-Perron tests on all those. This allows the user
-to assess the compatibility/plausibility of their test statistics with data
-that are known to be nonstationary in some form.}
+"nonstationary" (default), the function generates three different data sets
+of a pure random walk, a random walk with a drift, and a random walk with a
+drift and trend. It then runs Phillips-Perron tests on all those. This allows
+the user to assess the compatibility/plausibility of their test statistics
+with data that are known to be nonstationary in some form.}
 }
 \value{
 \code{spp_test()} returns a list of length 3. The first element
