@@ -42,7 +42,7 @@ attributes about the procedure for post-processing.
 unit root in a time series by way of the Phillips-Perron test. It takes a
 vector and performs three Phillips-Perron tests (no drift, no trend; drift, no
 trend; drift and trend) and calculates both rho and tau statistics as one
-normally would. Rather than interpolate or approximate a *p*-value, it
+normally would. Rather than interpolate or approximate a \emph{p}-value, it
 simulates some user-specified number of Phillips-Perron tests of a known,
 white-noise time series matching the length of the time series the user
 provides. This allows the user to make assessments of non-stationarity or
@@ -59,15 +59,15 @@ that its robust to various forms of heteroskedasticity in the error term.
 
 The short-term and long-term lags follow the convention introduced in the
 Phillips-Perron test. The short-term lag uses the default number of
-Newey-West lags, defined as the floor of 4*(n/100)^.25 where `n` is the length
+Newey-West lags, defined as the floor of 4*(n/100)^.25 where \code{n} is the length
 of the time series. The long-term lag substitutes 4 for 12 in this equation.
 
 This function specifies three different types of tests: 1) no drift, no trend,
-2) drift, no trend, and 3) drift and trend. In the language of the `lm()`
-function, the first is `lm(y ~ ly - 1)` where `y` is the value of `y` and
-`ly` is its first-order lag. The second test is `lm(y ~ ly)`, intuitively
-suggesting the *y*-intercept in this equation is the "drift". The third would
-be `lm(y ~ ly + t)` with `t` being a simple integer that increases by 1 for
+2) drift, no trend, and 3) drift and trend. In the language of the \code{lm()}
+function, the first is \code{lm(y ~ ly - 1)} where \code{y} is the value of \code{y} and
+\code{ly} is its first-order lag. The second test is \code{lm(y ~ ly)}, intuitively
+suggesting the \emph{y}-intercept in this equation is the "drift". The third would
+be \code{lm(y ~ ly + t)} with \code{t} being a simple integer that increases by 1 for
 each observation (i.e. a time-trend).
 
 There are two types of statistics in the Phillips-Perron test: rho and tau.

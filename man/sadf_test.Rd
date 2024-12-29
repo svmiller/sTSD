@@ -12,7 +12,7 @@ sadf_test(x, n_lags = NULL, n_sims = 1000, sim_hyp = "nonstationary")
 \item{n_lags}{defaults to NULL, but must be 0 or a positive integer. This
 argument determines the number of lagged first differences to include in the
 estimation procedure. Recall that the test statistic (tau) is still the
-t-statistic for the *level* value of the vector at t-1, whether the constant
+t-statistic for the \emph{level} value of the vector at t-1, whether the constant
 (drift) and time trend is included or not. If this value is 0, the procedure
 is the classic Dickey-Fuller test. If this value is greater than 0, this is
 the "augmented" Dickey-Fuller test, so-called because it is "augmented" by
@@ -50,7 +50,7 @@ post-processing.
 unit root in a time series by way of the (Augmented) Dickey-Fuller test. It takes a
 vector and performs three (Augmented) Dickey-Fuller tests (no drift, no trend; drift, no
 trend; drift and trend) and calculates both rho and tau statistics as one
-normally would. Rather than interpolate or approximate a *p*-value, it
+normally would. Rather than interpolate or approximate a \emph{p}-value, it
 simulates some user-specified number of (Augmented) Dickey-Fuller tests of a known,
 white-noise time series matching the length of the time series the user
 provides. This allows the user to make assessments of non-stationarity or
@@ -63,7 +63,7 @@ procedures, even if the underlying concept is straightforward. I have seen
 various implementations of these procedures use slightly different
 terminology to describe its procedure, though this particular implementation
 will impose nomenclature in which the classic Dickey-Fuller procedure that
-assumes just the AR(1) process is one in which `n_lags` is 0. The
+assumes just the AR(1) process is one in which \code{n_lags} is 0. The
 addition of lags (of first differences) is what ultimately makes the
 Dickey-Fuller procedure to be "augmented."
 
@@ -80,11 +80,11 @@ subtracts 1 from the length of the series before raising it to the power of
 you can do this.
 
 This function specifies three different types of tests: 1) no drift, no trend,
-2) drift, no trend, and 3) drift and trend. In the language of the `lm()`
-function, the first is `lm(y ~ ly - 1)` where `y` is the value of `y` and
-`ly` is its first-order lag. The second test is `lm(y ~ ly)`, intuitively
-suggesting the *y*-intercept in this equation is the "drift". The third would
-be `lm(y ~ ly + t)` with `t` being a simple integer that increases by 1 for
+2) drift, no trend, and 3) drift and trend. In the language of the \code{lm()}
+function, the first is \code{lm(y ~ ly - 1)} where \code{y} is the value of \code{y} and
+\code{ly} is its first-order lag. The second test is \code{lm(y ~ ly)}, intuitively
+suggesting the \emph{y}-intercept in this equation is the "drift". The third would
+be \code{lm(y ~ ly + t)} with \code{t} being a simple integer that increases by 1 for
 each observation (i.e. a time-trend).
 
 None of this is meant to discourage the use of Fuller (1976) or its various
@@ -128,7 +128,7 @@ sadf_test(y, n_sims = 25)
 }
 \references{
 Schwert, G. William. 1989. "Tests for Unit Roots: A Monte Carlo Investigation."
-*Journal of Business & Economic Statistics* 7(2): 147--159.
+\emph{Journal of Business & Economic Statistics} 7(2): 147--159.
 }
 \author{
 Steven V. Miller
