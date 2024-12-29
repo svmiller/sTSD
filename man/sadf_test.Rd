@@ -115,9 +115,9 @@ y <- na.omit(USDSEK[1:500,])
 # Default suggested number of lags, by way of Schwert (1989):
 floor(12*(length(y)/100)^(.25))
 # Default method in {tseries}' adf.test()
-floor((length(y)-1)^(1/3)))
+floor((length(y)-1)^(1/3))
 # Default method for lags in {aTSA}' adf.test()
- floor(4*(length(y)/100)^(2/9))
+floor(4*(length(y)/100)^(2/9))
 
 
 sadf_test(a, n_sims = 25)
@@ -125,6 +125,10 @@ sadf_test(b, n_sims = 25)
 sadf_test(x, n_sims = 25)
 sadf_test(y, n_sims = 25)
 
+}
+\references{
+Schwert, G. William. 1989. "Tests for Unit Roots: A Monte Carlo Investigation."
+*Journal of Business & Economic Statistics* 7(2): 147--159.
 }
 \author{
 Steven V. Miller
