@@ -111,7 +111,7 @@
 #' # Default suggested number of lags, by way of Schwert (1989):
 #' floor(12*(length(y)/100)^(.25))
 #' # Default method in {tseries}' adf.test()
-#' floor((length(y)-1)^(1/3))
+#' floor((length(y)-1)^(1/3)) # Said and Dickey (1984)
 #' # Default method for lags in {aTSA}' adf.test()
 #' floor(4*(length(y)/100)^(2/9))
 #'
@@ -160,7 +160,6 @@ sadf_test <- function(x, n_lags = NULL, n_sims = 1000,
 
   if(n_lags > 0) {
     adf_diff_lags <- m[, 2:nlp1]
-    #res <- lm(d_x_t ~ xt1 + 1 + tt + yt1)
     M1 <- lm(d_x_t ~ l1_x - 1 + adf_diff_lags)    # no drift, no trend
     M2 <- lm(d_x_t ~ l1_x + adf_diff_lags)        # drift, no trend
     M3 <- lm(d_x_t ~ l1_x + time + adf_diff_lags) # drift and trend

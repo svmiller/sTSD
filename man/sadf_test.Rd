@@ -115,7 +115,7 @@ y <- na.omit(USDSEK[1:500,])
 # Default suggested number of lags, by way of Schwert (1989):
 floor(12*(length(y)/100)^(.25))
 # Default method in {tseries}' adf.test()
-floor((length(y)-1)^(1/3))
+floor((length(y)-1)^(1/3)) # Said and Dickey (1984)
 # Default method for lags in {aTSA}' adf.test()
 floor(4*(length(y)/100)^(2/9))
 
