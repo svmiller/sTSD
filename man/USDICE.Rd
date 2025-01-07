@@ -10,6 +10,7 @@ A data frame with 299 observations on the following 4 variables.
 \item{\code{date}}{a date}
 \item{\code{pce}}{personal consumption expenditures, seasonally adjusted, in billions}
 \item{\code{dpi}}{disposable personal income, seasonally adjusted, in billions}
+\item{\code{pira}}{personal income receipts on assets (personal dividend income), in billions}
 \item{\code{cpiu}}{consumer price index for all urban consumers (all items in U.S. city average)}
 }
 }
@@ -21,8 +22,8 @@ A data frame on personal consumption expenditures and disposable personal income
 }
 \details{
 Data come by way of \pkg{fredr} call. Data are quarterly. Personal
-consumption expenditure and disposable personal income are not inflation-adjusted,
-though the data on the consumer price index allow for such inflation adjustment
-to "real" dollars based on researcher discretion.
+consumption expenditure. disposable personal income, and personal dividend
+income are not inflation-adjusted. The data on the consumer price index allow
+for such inflation adjustment to "real" dollars based on researcher discretion.
 }
 \keyword{datasets}
