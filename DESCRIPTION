@@ -1,7 +1,7 @@
 Package: sTSD
 Type: Package
 Title: Simulate Time Series Diagnostics
-Version: 0.1.0
+Version: 0.1.9
 Authors@R: person("Steven", "Miller",
                   email = "steve@svmiller.com", 
                   role = c("aut", "cre"),
