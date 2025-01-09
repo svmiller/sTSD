@@ -50,7 +50,7 @@ bound, interpret the latter as the former.
 \examples{
 
 x <- head(tbills$tb3m, 500)
-adf_lag_select(x)
+X <- adf_lag_select(x)
 
 }
 \author{
