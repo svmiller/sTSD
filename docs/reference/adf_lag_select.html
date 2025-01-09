@@ -99,7 +99,127 @@ bound, interpret the latter as the former.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tbills</span><span class="op">$</span><span class="va">tb3m</span>, <span class="fl">500</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu">adf_lag_select</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">adf_lag_select</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    lag       tau       AIC       BIC   abs_llfd      mAIC      mBIC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0 2.0896816 -2031.526 -2023.101         NA -6.915188 -6.915188</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1 1.5224557 -2055.447 -2042.815 5.37390603 -6.971305 -6.962850</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    2 1.2410477 -2054.325 -2037.490 2.43091641 -6.977366 -6.960430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    3 1.0213490 -2050.905 -2029.873 1.56819885 -6.978832 -6.953389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    4 1.1244779 -2044.968 -2019.740 1.09046482 -6.975191 -6.941214</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    5 0.8945364 -2042.605 -2013.187 2.13833855 -6.978810 -6.936274</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    6 1.1006935 -2040.181 -2006.577 1.87420498 -6.982269 -6.931148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    7 1.2993100 -2038.238 -2000.452 2.27338367 -6.986733 -6.926999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    8 1.2182212 -2033.691 -1991.727 1.28923464 -6.985927 -6.917553</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   9 1.4680644 -2034.073 -1987.934 1.43944228 -6.995166 -6.918126</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  10 1.4208201 -2027.125 -1976.816 0.06730902 -6.989459 -6.903726</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  11 1.6119787 -2023.307 -1968.833 1.50539765 -6.990146 -6.895692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  12 1.9039005 -2024.156 -1965.520 1.50426284 -7.000426 -6.897225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  13 2.2413755 -2025.662 -1962.869 1.58458569 -7.012110 -6.900133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  14 2.0280381 -2020.490 -1953.544 0.94201841 -7.010039 -6.889259</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  15 2.0153462 -2013.278 -1942.183 0.12503851 -7.003761 -6.874151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  16 1.8750131 -2014.282 -1939.042 0.70052179 -7.014476 -6.876007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  17 2.1973872 -2030.811 -1951.430 0.05759803 -7.057429 -6.910074</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              note</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      Schwert (1989) lower bound</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Said and Dickey (1984) default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     Schwert (1989) upper bound</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    lag        tau       AIC       BIC   abs_llfd      mAIC      mBIC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0  1.3482375 -2029.936 -2017.298         NA -6.915902 -6.915902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1  0.6443310 -2053.458 -2036.615 5.33242816 -6.971324 -6.962869</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    2  0.3298184 -2052.340 -2031.297 2.42925494 -6.977393 -6.960457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    3  0.1185905 -2048.976 -2023.737 1.58514688 -6.978957 -6.953514</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    4  0.2507231 -2042.995 -2013.563 1.06865218 -6.975238 -6.941261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    5 -0.0213418 -2040.740 -2007.120 2.16162433 -6.979049 -6.936513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    6  0.1958805 -2038.226 -2000.421 1.84563012 -6.982349 -6.931227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    7  0.4572120 -2036.238 -1994.253 2.26127393 -6.986733 -6.926999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    8  0.3090882 -2031.709 -1985.548 1.29458331 -6.985958 -6.917585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   9  0.4972708 -2032.073 -1981.740 1.42934568 -6.995168 -6.918127</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  10  0.4781685 -2025.125 -1970.625 0.06950695 -6.989460 -6.903727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  11  0.6653122 -2021.318 -1962.653 1.50684469 -6.990165 -6.895712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  12  0.8837657 -2022.209 -1959.385 1.51732816 -7.000521 -6.897319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  13  1.1359101 -2023.801 -1956.822 1.61140779 -7.012363 -6.900386</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  14  0.9780633 -2018.571 -1947.440 0.90907911 -7.010185 -6.889406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  15  0.9861440 -2011.367 -1936.090 0.15353906 -7.003923 -6.874313</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  16  1.0082698 -2012.423 -1933.003 0.73144003 -7.014735 -6.876267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  17  1.0927102 -2028.930 -1945.371 0.02711476 -7.057647 -6.910292</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              note</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      Schwert (1989) lower bound</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Said and Dickey (1984) default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     Schwert (1989) upper bound</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    lag       tau       AIC       BIC   abs_llfd      mAIC      mBIC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0 -2.426949 -2040.999 -2024.148         NA -6.915902 -6.915902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1 -2.431819 -2061.744 -2040.691 5.19930082 -6.971324 -6.962869</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    2 -2.636012 -2060.955 -2035.704 2.38841959 -6.977393 -6.960457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    3 -2.926802 -2059.004 -2029.558 1.59187943 -6.978957 -6.953514</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    4 -2.873455 -2053.123 -2019.486 1.05401272 -6.975238 -6.941261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    5 -3.125903 -2051.782 -2013.959 2.18917693 -6.979049 -6.936513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    6 -2.888941 -2048.215 -2006.209 1.81488949 -6.982349 -6.931227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    7 -2.810820 -2046.640 -2000.457 2.28004951 -6.986733 -6.926999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    8 -2.777149 -2041.239 -1990.882 1.26012365 -6.985958 -6.917585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   9 -2.422055 -2039.649 -1985.122 1.45478325 -6.995168 -6.918127</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  10 -2.517194 -2033.328 -1974.635 0.03138362 -6.989460 -6.903727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  11 -2.346064 -2028.951 -1966.097 1.56158019 -6.990165 -6.895712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  12 -2.013863 -2028.311 -1961.299 1.59050853 -7.000521 -6.897319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  13 -1.689410 -2028.660 -1957.495 1.69896031 -7.012363 -6.900386</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  14 -1.860517 -2024.038 -1948.723 0.80878246 -7.010185 -6.889406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  15 -1.880276 -2017.012 -1937.553 0.24539439 -7.003923 -6.874313</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  16 -2.236949 -2020.632 -1937.032 0.85327346 -7.014735 -6.876267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  17 -1.673499 -2033.637 -1945.900 0.08384766 -7.057647 -6.910292</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              note</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      Schwert (1989) lower bound</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Said and Dickey (1984) default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     Schwert (1989) upper bound</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
