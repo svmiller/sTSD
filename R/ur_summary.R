@@ -11,8 +11,7 @@
 #'
 #' @examples
 #'
-#' a <- cumsum(rnorm(50))
-#' A <- spp_test(a, n_sims = 100)
+#' A <- spp_test(money_demand$ffer, n_sims = 100)
 #' ur_summary(A)
 #'
 #'
