@@ -9,7 +9,7 @@
 <img src="http://svmiller.com/images/sTSD-hexlogo.png" alt="My sTSD  hexlogo" align="right" width="200" style="padding: 0 15px; float: right;"/>
 
 `{sTSD}` provides a suite of functions for the analyses of time series,
-with an initial focus on diagnostic rests for unit root. Its primary aim
+with an initial focus on diagnostic tests for unit root. Its primary aim
 concerns the simulation of critical values that are almost always
 approximated or interpolated by reference to tables of critical values
 passed down from decades-old texts. While there is nothing necessarily

@@ -19,7 +19,7 @@ cat(
 
 <img src="http://svmiller.com/images/sTSD-hexlogo.png" alt="My sTSD  hexlogo" align="right" width="200" style="padding: 0 15px; float: right;"/>
 
-`{sTSD}` provides a suite of functions for the analyses of time series, with an initial focus on diagnostic rests for unit root. Its primary aim concerns the simulation of critical values that are almost always approximated or interpolated by reference to tables of critical values passed down from decades-old texts. While there is nothing necessarily wrong with the received wisdom of critical values generated decades ago, simulation provides its own perks. Not only is simulation broadly informative as to what these various test statistics do and what are their plausible values, simulation provides more flexibility for assessing unit root by way of different thresholds or different hypothesized distributions.
+`{sTSD}` provides a suite of functions for the analyses of time series, with an initial focus on diagnostic tests for unit root. Its primary aim concerns the simulation of critical values that are almost always approximated or interpolated by reference to tables of critical values passed down from decades-old texts. While there is nothing necessarily wrong with the received wisdom of critical values generated decades ago, simulation provides its own perks. Not only is simulation broadly informative as to what these various test statistics do and what are their plausible values, simulation provides more flexibility for assessing unit root by way of different thresholds or different hypothesized distributions.
 
 ## Installation
 
