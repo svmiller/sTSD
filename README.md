@@ -11,7 +11,7 @@
 `{sTSD}` provides a suite of functions for the analyses of time series,
 with an initial focus on diagnostic rests for unit root. Its primary aim
 concerns the simulation of critical values that are almost always
-approximated or interpolated by reference to tables of critical roots
+approximated or interpolated by reference to tables of critical values
 passed down from decades-old texts. While there is nothing necessarily
 wrong with the received wisdom of critical values generated decades ago,
 simulation provides its own perks. Not only is simulation broadly
