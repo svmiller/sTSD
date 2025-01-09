@@ -19,13 +19,17 @@ in the list is a data frame of a series of (Augmented) Dickey-Fuller tests
 for no-drift, no-trend. The second is a data frame of a series of (Augmented)
 Dickey-Fuller tests for drift, no trend. The third is a data frame of a series
 of (Augmented) Dickey-Fuller tests for a drift and trend. Each data frame has
-six columns. The first communicates the particular lag order. The second
-communicates the (Augmented) Dickey-Fuller test statistic (tau) for that lag
-order. The third and fourth communicate the Akaike and Bayesian information
-criteria for the test (respectively). The fifth communicates the absolute
-value of the last, lagged first difference (where applicable). The sixth
-column contains a note indicating if the lag was suggested by Schwert (1989)
-or Said and Dickey (1984).
+the following columns communicating the following information.
+\enumerate{
+\item The lag order
+\item The (A)DF statistic for the lag order.
+\item The Akaike information criterion for the model.
+\item Schwartz' (Bayesian) criteron for the model.
+\item The absolute value of the last lagged first difference in the model.
+\item The "modified" Akaike information criterion for the model.
+\item The "modified" Schwarz' (Bayesian) criterion for the model.
+\item A note indicating if the lag was suggested by Schwert (1989) or Said and Dickey (1984)
+}
 }
 \description{
 \code{adf_lag_select()} runs a series of (Augmented) Dickey-Fuller
@@ -40,12 +44,13 @@ The lower bound lag order suggested by Schwert (1989) and the default suggested
 by Said and Dickey (1984) do not meaningfully separate from each other until
 the length of the series reaches 127. Under those conditions, if the \code{note}
 column returned by this function for a finite series does not identify the
-Said and Dickey (1984) default, but does identify the Schwert (1989) lower
+Said and Dickey (1984) default, but identifies the Schwert (1989) lower
 bound, interpret the latter as the former.
 }
 \examples{
 
-adf_lag_select(tbills$tb3m)
+x <- head(tbills$tb3m, 500)
+adf_lag_select(x)
 
 }
 \author{

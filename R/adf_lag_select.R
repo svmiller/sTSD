@@ -13,7 +13,7 @@
 #' by Said and Dickey (1984) do not meaningfully separate from each other until
 #' the length of the series reaches 127. Under those conditions, if the `note`
 #' column returned by this function for a finite series does not identify the
-#' Said and Dickey (1984) default, but does identify the Schwert (1989) lower
+#' Said and Dickey (1984) default, but identifies the Schwert (1989) lower
 #' bound, interpret the latter as the former.
 #'
 #' @return \code{adf_lag_select()} returns a list of length 3. The first element
@@ -21,13 +21,16 @@
 #' for no-drift, no-trend. The second is a data frame of a series of (Augmented)
 #' Dickey-Fuller tests for drift, no trend. The third is a data frame of a series
 #' of (Augmented) Dickey-Fuller tests for a drift and trend. Each data frame has
-#' six columns. The first communicates the particular lag order. The second
-#' communicates the (Augmented) Dickey-Fuller test statistic (tau) for that lag
-#' order. The third and fourth communicate the Akaike and Bayesian information
-#' criteria for the test (respectively). The fifth communicates the absolute
-#' value of the last, lagged first difference (where applicable). The sixth
-#' column contains a note indicating if the lag was suggested by Schwert (1989)
-#' or Said and Dickey (1984).
+#' the following columns communicating the following information.
+#'
+#' 1. The lag order
+#' 2. The (A)DF statistic for the lag order.
+#' 3. The Akaike information criterion for the model.
+#' 4. Schwartz' (Bayesian) criteron for the model.
+#' 5. The absolute value of the last lagged first difference in the model.
+#' 6. The "modified" Akaike information criterion for the model.
+#' 7. The "modified" Schwarz' (Bayesian) criterion for the model.
+#' 8. A note indicating if the lag was suggested by Schwert (1989) or Said and Dickey (1984)
 #'
 #' @author Steven V. Miller
 #'
@@ -37,7 +40,8 @@
 #'
 #' @examples
 #'
-#' adf_lag_select(tbills$tb3m)
+#' x <- head(tbills$tb3m, 500)
+#' adf_lag_select(x)
 #'
 #' @importFrom stats embed
 #' @importFrom stats lm
@@ -126,24 +130,27 @@ adf_lag_select <- function(x, min_lag = 0,
 
     mAIC <- rbind(AIC(M1), AIC(M2), AIC(M3))
     mBIC <- rbind(BIC(M1), BIC(M2), BIC(M3))
+
     last_adf_lag <- rbind(
       summary(M1)$coefficients[nrow(summary(M1)$coefficients), 3],
       summary(M2)$coefficients[nrow(summary(M2)$coefficients), 3],
       summary(M3)$coefficients[nrow(summary(M3)$coefficients), 3]
     )
 
-    NDNT <- rbind(NDNT, c(i, Stats[1],
-                                mAIC[1],
-                                mBIC[1],
-                                abs(last_adf_lag[1])))
-    DNT <- rbind(DNT, c(i, Stats[2],
-                               mAIC[2],
-                               mBIC[2],
-                               abs(last_adf_lag[1])))
-    DT <- rbind(DT, c(i, Stats[3],
-                               mAIC[3],
-                               mBIC[3],
-                               abs(last_adf_lag[1])))
+    mMAIC <- rbind(log(var(resid(M1)-1)) + (i)*(2/nobs(M1)),
+                  log(var(resid(M2)-1)) + i*(2/nobs(M2)),
+                  log(var(resid(M3)-1)) + i*(2/nobs(M3)))
+
+    mMBIC <- rbind(log(var(resid(M1)-1)) + i*(log(nobs(M1))/nobs(M1)),
+                   log(var(resid(M2)-1)) + i*(log(nobs(M2))/nobs(M2)),
+                   log(var(resid(M3)-1)) + i*(log(nobs(M3))/nobs(M3)))
+
+
+    NDNT <- rbind(NDNT, c(i, Stats[1], mAIC[1], mBIC[1], abs(last_adf_lag[1]),
+                          mMAIC[1], mMBIC[1]))
+    DNT <- rbind(DNT, c(i, Stats[2], mAIC[2], mBIC[2], abs(last_adf_lag[2]),
+                        mMAIC[2], mMBIC[2]))
+    DT <- rbind(DT, c(i, Stats[3], mAIC[3], mBIC[3], abs(last_adf_lag[3]), mMAIC[2], mMBIC[2]))
 
   }
 
@@ -151,7 +158,7 @@ adf_lag_select <- function(x, min_lag = 0,
   DNT <- as.data.frame(DNT)
   DT <- as.data.frame(DT)
 
-  colnames(NDNT) <- colnames(DNT) <- colnames(DT) <- c("lag","tau","AIC", "BIC", "abs_llfd")
+  colnames(NDNT) <- colnames(DNT) <- colnames(DT) <- c("lag","tau","AIC", "BIC", "abs_llfd", "mAIC", "mBIC")
   #result
 
   NDNT$abs_llfd <- with(NDNT, ifelse(lag == 0, NA, abs_llfd))
