@@ -10,7 +10,8 @@
 #' assessment about the presence of a unit root based on your simulations.
 #'
 #' @examples
-#' a <- rnorm(25)
+#'
+#' a <- cumsum(rnorm(50))
 #' A <- spp_test(a, n_sims = 100)
 #' ur_summary(A)
 #'

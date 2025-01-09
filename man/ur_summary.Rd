@@ -27,7 +27,8 @@ This function makes ample use of the "attributes" element in the
 list produced by the unit root simulations.
 }
 \examples{
-a <- rnorm(25)
+
+a <- cumsum(rnorm(50))
 A <- spp_test(a, n_sims = 100)
 ur_summary(A)
 

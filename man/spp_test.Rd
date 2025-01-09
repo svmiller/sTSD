@@ -43,11 +43,12 @@ unit root in a time series by way of the Phillips-Perron test. It takes a
 vector and performs three Phillips-Perron tests (no drift, no trend; drift, no
 trend; drift and trend) and calculates both rho and tau statistics as one
 normally would. Rather than interpolate or approximate a \emph{p}-value, it
-simulates some user-specified number of Phillips-Perron tests of a known,
-white-noise time series matching the length of the time series the user
-provides. This allows the user to make assessments of non-stationarity or
-stationarity by way of simulation rather than approximation from received
-critical values by way of books or tables some years out of date.
+simulates some user-specified number of Phillips-Perron tests of either a
+known, non-stationary time series or a known, white-noise time series
+matching the length of the time series the user provides. This allows the
+user to make assessments of non-stationarity or stationarity by way of
+simulation rather than approximation from received critical values by way of
+books or tables some years out of date.
 }
 \details{
 Some knowledge of Augmented Dickey-Fuller and the Phillips-Perron

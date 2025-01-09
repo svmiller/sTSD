@@ -1,15 +1,16 @@
 #' Simulate a (Augmented) Dickey-Fuller Test to Assess Unit Root in a Time Series
 #'
 #' @description \code{sadf_test()} provides a simulation approach to assessing
-#' unit root in a time series by way of the (Augmented) Dickey-Fuller test. It takes a
-#' vector and performs three (Augmented) Dickey-Fuller tests (no drift, no trend; drift, no
-#' trend; drift and trend) and calculates both rho and tau statistics as one
-#' normally would. Rather than interpolate or approximate a *p*-value, it
-#' simulates some user-specified number of (Augmented) Dickey-Fuller tests of a known,
-#' white-noise time series matching the length of the time series the user
-#' provides. This allows the user to make assessments of non-stationarity or
-#' stationarity by way of simulation rather than approximation from received
-#' critical values by way of books or tables some years out of date.
+#' unit root in a time series by way of the (Augmented) Dickey-Fuller test. It
+#' takes a vector and performs three (Augmented) Dickey-Fuller tests (no drift,
+#' no trend; drift, no trend; drift and trend) and calculates tau statistics as
+#' one normally would. Rather than interpolate or approximate a  *p*-value, it
+#' simulates some user-specified number of (Augmented) Dickey-Fuller tests of
+#' either a known, non-stationary time series or a known, white-noise time series
+#' matching the length of the time series the user provides. This allows the
+#' user to make assessments of non-stationarity or stationarity by way of
+#' simulation rather than approximation from received critical values by way of
+#' books or tables some years out of date.
 #'
 #' @details
 #'
@@ -102,11 +103,8 @@
 #' *Journal of Business & Economic Statistics* 7(2): 147--159.
 #'
 #' @examples
-#' a <- rnorm(25) # white noise
-#' b <- cumsum(a) # random walk
 #'
-#' x <- c(4, 1, 5, 8, 3, 9, 3, 6, 8, 6, 4, 4, 1, 10, 7, 6, 9, 2, 10, 9, 9, 4, 8, 3, 9)
-#' y <- na.omit(USDSEK[1:500,])
+#' y <- na.omit(USDSEK[1:500,])$close
 #'
 #' # Default suggested number of lags, by way of Schwert (1989):
 #' floor(12*(length(y)/100)^(.25))
@@ -116,10 +114,8 @@
 #' floor(4*(length(y)/100)^(2/9))
 #'
 #'
-#' sadf_test(a, n_sims = 25)
-#' sadf_test(b, n_sims = 25)
-#' sadf_test(x, n_sims = 25)
-#' sadf_test(y, n_sims = 25)
+#' sadf_test(y, n_sims = 25) # Doing 25, just to make it quick
+#'
 #'
 #' @importFrom stats embed
 #' @importFrom stats lm
