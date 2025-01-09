@@ -88,3 +88,27 @@
 #' *Journal of Conflict Resolution* 47(1): 13-32.
 #'
 "exCopdab"
+
+#' Quarterly Money Demand in the United States
+#'
+#' A data frame of quarterly indicators useful for modeling the demand for money
+#'  in the United States. Data go from the first quarter of 1960 to the third
+#'  quarter of 2024.
+#'
+#' @format A data frame with 259 observations on the following variables.
+#' \describe{
+#' \item{\code{date}}{a date}
+#' \item{\code{m1}}{so-called 'narrow' money (M1) in supply, in billions, not seasonally adjsuted}
+#' \item{\code{m2}}{monetary supply (M2), in billions, not seasonally adjusted}
+#' \item{\code{gnpdef}}{an implicit price deflator for gross national product}
+#' \item{\code{ffer}}{the federal funds effective rate}
+#' \item{\code{rgnp}}{real gross national product (in 2017 dollars)}
+#' }
+#'
+#' @details Data come by way of \pkg{fredr} call. Be mindful of changes in the
+#' definition of the money supply, especially as they manifest in May 2020.
+#' Subject domain expertise goes a long way here. The "M2" indicator is the "M1"
+#' indicator with small-time deposits that are "close substitutes" for M1.
+#'
+
+"money_demand"

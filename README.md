@@ -1,10 +1,10 @@
 
 # `sTSD`: Simulate Time Series Diagnostics
 
-[![](https://www.r-pkg.org/badges/version/sTSD?color=green)](https://cran.r-project.org/package=sTSD)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/sTSD?color=green)](https://cran.r-project.org/package=sTSD)
-[![](http://cranlogs.r-pkg.org/badges/last-month/sTSD?color=green)](https://cran.r-project.org/package=sTSD)
-[![](http://cranlogs.r-pkg.org/badges/last-week/sTSD?color=green)](https://cran.r-project.org/package=sTSD)
+[![](https://www.r-pkg.org/badges/version/sTSD?color=blue)](https://cran.r-project.org/package=sTSD)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/sTSD?color=blue)](https://cran.r-project.org/package=sTSD)
+[![](http://cranlogs.r-pkg.org/badges/last-month/sTSD?color=blue)](https://cran.r-project.org/package=sTSD)
+[![](http://cranlogs.r-pkg.org/badges/last-week/sTSD?color=blue)](https://cran.r-project.org/package=sTSD)
 
 <img src="http://svmiller.com/images/sTSD-hexlogo.png" alt="My sTSD  hexlogo" align="right" width="200" style="padding: 0 15px; float: right;"/>
 
