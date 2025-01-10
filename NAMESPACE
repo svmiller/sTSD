@@ -2,6 +2,7 @@
 
 export(adf_lag_select)
 export(sadf_test)
+export(sim_ts)
 export(spp_test)
 export(ur_summary)
 importFrom(stats,arima.sim)
