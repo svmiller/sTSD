@@ -189,7 +189,6 @@ sadf_test <- function(x, n_lags = NULL, n_sims = 1000,
 
       if(n_lags > 0) {
         adf_diff_lags_fake <- fm[, 2:nlp1]
-        #res <- lm(d_x_t ~ xt1 + 1 + tt + yt1)
         fM1 <- lm(d_fx_t ~ l1_fx - 1 + adf_diff_lags_fake)    # no drift, no trend
         fM2 <- lm(d_fx_t ~ l1_fx + adf_diff_lags_fake)        # drift, no trend
         fM3 <- lm(d_fx_t ~ l1_fx + ft + adf_diff_lags_fake) # drift and trend
