@@ -98,7 +98,7 @@
 #' @format A data frame with 259 observations on the following 6 variables.
 #' \describe{
 #' \item{\code{date}}{a date}
-#' \item{\code{m1}}{so-called 'narrow' money (M1) in supply, in billions, not seasonally adjsuted}
+#' \item{\code{m1}}{so-called 'narrow' money (M1) in supply, in billions, not seasonally adjusted}
 #' \item{\code{m2}}{monetary supply (M2), in billions, not seasonally adjusted}
 #' \item{\code{gnpdef}}{an implicit price deflator for gross national product (index, 2017 = 100)}
 #' \item{\code{ffer}}{the federal funds effective rate}
@@ -113,3 +113,45 @@
 #'
 
 "money_demand"
+
+
+#' Suggested Lags for Your Time Series
+#'
+#' A data frame on various suggestions for lags for your time series, given
+#'  the length of your time series. You are not compelled to use these. These
+#'  are just suggestions.
+#'
+#' @format A data frame with 1000 observations on the following 4 variables.
+#' \describe{
+#' \item{\code{n}}{an integer corresponding with an assumed length of your time series}
+#' \item{\code{schwert_ub}}{the upper bound lag order suggested by Schwert (1989) for a time series of that length}
+#' \item{\code{schwert_lb}}{the lower bound lag order suggested by Schwert (1989) for a time series of that length}
+#' \item{\code{qiuetal2013}}{the suggested lag order from Qiu et al. (2013)}
+#' \item{\code{sd84}}{the suggested lag order from Said and Dickey (1984)}
+#' }
+#'
+#' @details
+#'
+#' The lower bound lag order suggested by Schwert (1989) and the default
+#' suggested by Said and Dickey (1984) do not meaningfully separate from each
+#' other until the length of the series reaches 127. You should think long and
+#' hard about doing any of this if your time series is so finite that it has
+#' fewer than 25 observations.
+#'
+#' The Qiu et al. (2013) suggestion is what is the default lag if you're using
+#' the \pkg{aTSA} package. It is almost equivalent to the Schwert (1989) lower
+#' bound, except the length of the series is raised to 2/9 and not 2/8.
+#'
+#' @references
+#'
+#' Qiu, D., Q. Shao, and L. Yang. 2013. "Efficient Inference for Autoregressive
+#' Coefficients in the Presence of Trends." *Jounal of Multivariate Analysis*
+#' 114: 40--53.
+#'
+#' Said, Said E. and David A. Dickey. 1984. "Testing for Unit Roots in
+#' Autoregressive-Moving Average Models of Unknown Order." *Biometrika* 71(3):
+#' 599-607.
+#'
+#' Schwert, G. William. 1989. "Tests for Unit Roots: A Monte Carlo Investigation".
+#' *Journal of Business & Economic Statistics* 7(2): 147--59.
+#'

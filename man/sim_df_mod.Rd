@@ -37,6 +37,14 @@ and perform a(n Augmented) Dickey-Fuller test.
 \code{classic_df = TRUE} has the effect of \code{df_lags = 0}. As a programming
 matter, though, the function will not except \code{df_lags = 0}. Use
 \code{classic_df = TRUE} instead.
+
+This might change in future iterations, but it's worth clarifying the values
+assigned to the parameters of a drift and trend. The drift is randomly
+generated from a Rademacher distribution for both the times series with drift
+and drift-and-trend. The series with a deterministic trend divides the value
+from the Rademacher distribution by 10. My rationale is largely based on what
+I've seen other pedagogical guides do, the extent to which they talk about
+simulating values for these types of random walks.
 }
 \examples{
 

@@ -17,9 +17,9 @@ t-statistic for the \emph{level} value of the vector at t-1, whether the constan
 is the classic Dickey-Fuller test. If this value is greater than 0, this is
 the "augmented" Dickey-Fuller test, so-called because it is "augmented" by
 the number of lagged first differences to assess higher-order AR processes.
-If no argument is specified, the default lag is the length of the series,
-divided over 100, raised to the power of 1/4, and floored. Check "Details"
-and "Examples" for more information.}
+If no argument is specified, the default lag is Schwert's suggested lower
+bound. The \code{lag_suggests} data provides more information about these
+suggested lags.}
 
 \item{n_sims}{the number of simulations for calculating an interval or
 distribution of test statistics for assessing stationarity or
@@ -109,13 +109,6 @@ statistics.
 \examples{
 
 y <- na.omit(USDSEK[1:500,])$close
-
-# Default suggested number of lags, by way of Schwert (1989):
-floor(12*(length(y)/100)^(.25))
-# Default method in {tseries}' adf.test()
-floor((length(y)-1)^(1/3)) # Said and Dickey (1984)
-# Default method for lags in {aTSA}' adf.test()
-floor(4*(length(y)/100)^(2/9))
 
 
 sadf_test(y, n_sims = 25) # Doing 25, just to make it quick

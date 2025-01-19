@@ -80,9 +80,9 @@
 #' is the classic Dickey-Fuller test. If this value is greater than 0, this is
 #' the "augmented" Dickey-Fuller test, so-called because it is "augmented" by
 #' the number of lagged first differences to assess higher-order AR processes.
-#' If no argument is specified, the default lag is the length of the series,
-#' divided over 100, raised to the power of 1/4, and floored. Check "Details"
-#' and "Examples" for more information.
+#' If no argument is specified, the default lag is Schwert's suggested lower
+#' bound. The \code{lag_suggests} data provides more information about these
+#' suggested lags.
 #' @param n_sims the number of simulations for calculating an interval or
 #' distribution of test statistics for assessing stationarity or
 #' non-stationarity. Defaults to 1,000.
@@ -106,13 +106,6 @@
 #'
 #' y <- na.omit(USDSEK[1:500,])$close
 #'
-#' # Default suggested number of lags, by way of Schwert (1989):
-#' floor(12*(length(y)/100)^(.25))
-#' # Default method in {tseries}' adf.test()
-#' floor((length(y)-1)^(1/3)) # Said and Dickey (1984)
-#' # Default method for lags in {aTSA}' adf.test()
-#' floor(4*(length(y)/100)^(2/9))
-#'
 #'
 #' sadf_test(y, n_sims = 25) # Doing 25, just to make it quick
 #'
@@ -123,9 +116,10 @@
 #' @importFrom stats rnorm
 #' @importFrom stats arima.sim
 #' @export
+#'
 
-sadf_test <- function(x, n_lags = NULL, n_sims = 1000,
-                     sim_hyp = "nonstationary") {
+
+sadf_test <- function(x, n_lags = NULL, n_sims = 1000, sim_hyp = "nonstationary") {
 
   if (!is.null(n_lags) && (n_lags %% 1 != 0 || n_lags < 0)) {
     stop("n_lags must be a positive integer.")
@@ -140,10 +134,11 @@ sadf_test <- function(x, n_lags = NULL, n_sims = 1000,
   x <- x[is.finite(x)] # force the time series to be complete.
 
   n_lags <- ifelse(is.null(n_lags),
-                   floor(12*(length(x)/100)^(.25)), # gonna go with Schwert (1989)
+                   floor(4*(length(x)/100)^(.25)), # gonna go with Schwert's lower bound (1989)
                    n_lags)
 
   # Let's try it again at the top...
+  # This calculates the DF/ADF stat on the actual data. ----
   nlp1 <- n_lags + 1
 
   diff_x <- diff(x)
@@ -170,34 +165,25 @@ sadf_test <- function(x, n_lags = NULL, n_sims = 1000,
                  summary(M2)$coefficients[2, 3 ],
                  summary(M3)$coefficients[2, 3 ])
 
-
   # Start the Sims -----
   Sims <- data.frame()
   if(sim_hyp == "stationary") { # * if sim_hyp is stationary... ----
-
     for (i in 1:n_sims) {
-      fake_x <- rnorm(length(x)) # create fake data of length(x)
-
-      f_d_x <- diff(fake_x) # first diffs of fake_x
-      n_f_d_x <- length(f_d_x) # length of those first differences
-
-      fm <- embed(f_d_x, nlp1)
-      d_fx_t <- fm[,1]
-      l1_fx <- fake_x[nlp1:n_f_d_x]
-      ft <- 1:length(d_fx_t)
-
 
       if(n_lags > 0) {
-        adf_diff_lags_fake <- fm[, 2:nlp1]
-        fM1 <- lm(d_fx_t ~ l1_fx - 1 + adf_diff_lags_fake)    # no drift, no trend
-        fM2 <- lm(d_fx_t ~ l1_fx + adf_diff_lags_fake)        # drift, no trend
-        fM3 <- lm(d_fx_t ~ l1_fx + ft + adf_diff_lags_fake) # drift and trend
-      } else { # classic DF, where n_lags == 0
-        fM1 <- lm(d_fx_t ~ l1_fx - 1)    # no drift, no trend
-        fM2 <- lm(d_fx_t ~ l1_fx )       # drift, no trend
-        fM3 <- lm(d_fx_t ~ l1_fx + ft) # drift and trend
-      }
 
+        fM1 <- sim_df_mod(x, ts_type = "ndnt", df_lags = n_lags, wn = TRUE)
+        fM2 <- sim_df_mod(x, ts_type = "dnt", df_lags = n_lags, wn = TRUE)
+        fM3 <- sim_df_mod(x, ts_type = "dt", df_lags = n_lags, wn = TRUE)
+
+      } else {
+
+        fM1 <- sim_df_mod(x, ts_type = "ndnt", classic_df = TRUE, wn = TRUE)
+        fM2 <- sim_df_mod(x, ts_type = "dnt", classic_df = TRUE, wn = TRUE)
+        fM3 <- sim_df_mod(x, ts_type = "dt", classic_df = TRUE, wn = TRUE)
+
+
+      }
 
       fakeStats <- rbind(summary(fM1)$coefficients[1, 3],
                          summary(fM2)$coefficients[2, 3 ],
@@ -210,90 +196,28 @@ sadf_test <- function(x, n_lags = NULL, n_sims = 1000,
                          "Drift and Trend")
 
       Sims <- rbind(Sims, fakeStats)
-
 
     }
+
+
   } else { # else sim_hyp is non-stationary ----
+
     for (i in 1:n_sims) {
 
-      fake_x <- rnorm(length(x))
-      fndnt <- cumsum(fake_x)
-      fdnt <- cumsum(2 + fake_x)
-      fdt <- as.vector(arima.sim(n = length(x), model = list(ar = .99)))
-
-      # Get some first diffs...
-
-      diff_fndnt <- diff(fndnt)
-      diff_fdnt <- diff(fdnt)
-      diff_fdt <- diff(fdt)
-
-      length_fake_fds <- length(diff_fndnt) # length will be the same for all of them.
-
-
-      # Get some l1 values...
-
-      l1_fx_fndnt <- fndnt[nlp1:length_fake_fds]
-      l1_fx_fdnt <- fdnt[nlp1:length_fake_fds]
-      l1_fx_fdt <- fdt[nlp1:length_fake_fds]
-
-      # okie doke, this could get *even more* tedious.
-      # Let's do it for the first one...
-      # * simming no drift, no trend -----
-
       if(n_lags > 0) {
 
-        fm <- embed(diff_fndnt, nlp1)
-        d_fx_t <- fm[,1]
-        adf_diff_lags_fake <- fm[, 2:nlp1]
+        fM1 <- sim_df_mod(x, ts_type = "ndnt", df_lags = n_lags, wn = FALSE)
+        fM2 <- sim_df_mod(x, ts_type = "dnt", df_lags = n_lags, wn = FALSE)
+        fM3 <- sim_df_mod(x, ts_type = "dt", df_lags = n_lags, wn = FALSE)
 
-        fM1 <- lm(d_fx_t ~ l1_fx_fndnt - 1 + adf_diff_lags_fake) # no drift, no trend
+      } else {
 
-      } else { # classic DF, where n_lags == 0
-        fm <- embed(diff_fndnt, nlp1)
-        d_fx_t <- fm[,1]
+        fM1 <- sim_df_mod(x, ts_type = "ndnt", classic_df = TRUE, wn = FALSE)
+        fM2 <- sim_df_mod(x, ts_type = "dnt", classic_df = TRUE, wn = FALSE)
+        fM3 <- sim_df_mod(x, ts_type = "dt", classic_df = TRUE, wn = FALSE)
 
-        fM1 <- lm(d_fx_t ~ l1_fx_fndnt - 1)    # no drift, no trend
+
       }
-
-      # The second one...
-      # * simming drift, no trend -----
-
-      if(n_lags > 0) {
-
-        fm <- embed(diff_fdnt, nlp1)
-        d_fx_t <- fm[,1]
-        time <- 1:length(d_fx_t)
-        adf_diff_lags_fake <- fm[, 2:nlp1]
-
-        fM2 <- lm(d_fx_t ~ l1_fx_fndnt + adf_diff_lags_fake) # drift, no trend
-
-      } else { # classic DF, where n_lags == 0
-        fm <- embed(diff_fdnt, nlp1)
-        d_fx_t <- fm[,1]
-        time <- 1:length(d_fx_t)
-
-        fM2 <- lm(d_fx_t ~ l1_fx_fndnt)    # drift, no trend
-      }
-
-
-      if(n_lags > 0) {
-
-        fm <- embed(diff_fdt, nlp1)
-        d_fx_t <- fm[,1]
-        time <- 1:length(d_fx_t)
-        adf_diff_lags_fake <- fm[, 2:nlp1]
-
-        fM3 <- lm(d_fx_t ~ l1_fx_fdt + time + adf_diff_lags_fake) # drift and no trend
-
-      } else { # classic DF, where n_lags == 0
-        fm <- embed(diff_fdt, nlp1)
-        d_fx_t <- fm[,1]
-        time <- 1:length(d_fx_t)
-
-        fM3 <- lm(d_fx_t ~ l1_fx_fdt + time)    # drift and trend
-      }
-
-
 
       fakeStats <- rbind(summary(fM1)$coefficients[1, 3],
                          summary(fM2)$coefficients[2, 3 ],
@@ -306,14 +230,10 @@ sadf_test <- function(x, n_lags = NULL, n_sims = 1000,
                          "Drift and Trend")
 
       Sims <- rbind(Sims, fakeStats)
-
-
-
 
     }
 
   }
-
 
   attatt <- data.frame(lags = n_lags,
                        sim_hyp = sim_hyp,
@@ -328,5 +248,8 @@ sadf_test <- function(x, n_lags = NULL, n_sims = 1000,
   class(output) <- c("sadf_test")
   return(output)
 
+} # end function sadf_test()
 
-}
+
+
+

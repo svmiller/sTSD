@@ -8,7 +8,7 @@
 A data frame with 259 observations on the following 6 variables.
 \describe{
 \item{\code{date}}{a date}
-\item{\code{m1}}{so-called 'narrow' money (M1) in supply, in billions, not seasonally adjsuted}
+\item{\code{m1}}{so-called 'narrow' money (M1) in supply, in billions, not seasonally adjusted}
 \item{\code{m2}}{monetary supply (M2), in billions, not seasonally adjusted}
 \item{\code{gnpdef}}{an implicit price deflator for gross national product (index, 2017 = 100)}
 \item{\code{ffer}}{the federal funds effective rate}

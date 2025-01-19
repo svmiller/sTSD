@@ -13,6 +13,14 @@
 #' matter, though, the function will not except `df_lags = 0`. Use
 #' `classic_df = TRUE` instead.
 #'
+#' This might change in future iterations, but it's worth clarifying the values
+#' assigned to the parameters of a drift and trend. The drift is randomly
+#' generated from a Rademacher distribution for both the times series with drift
+#' and drift-and-trend. The series with a deterministic trend divides the value
+#' from the Rademacher distribution by 10. My rationale is largely based on what
+#' I've seen other pedagogical guides do, the extent to which they talk about
+#' simulating values for these types of random walks.
+#'
 #' @examples
 #'
 #' set.seed(8675309) # don't want new numbers in documentation every time...
