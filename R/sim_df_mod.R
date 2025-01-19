@@ -1,0 +1,147 @@
+#' Simulate a(n Augmented) Dickey-Fuller Test
+#'
+#' @description \code{sim_df_mod()} is mostly a helper function, to be used
+#' internally in this package, but you can use it here to simulate a time series
+#' and perform a(n Augmented) Dickey-Fuller test.
+#'
+#' @return \code{sim_df_mod()} returns the output of a linear model (with class
+#' `lm`) that performs a(n Augmented) Dickey-Fuller test on a simulated time
+#' series. This is mostly for internal use, but it might pique the user's
+#' interest to see such a test in action independent of simulated summaries.
+#'
+#' @details `classic_df = TRUE` has the effect of `df_lags = 0`. As a programming
+#' matter, though, the function will not except `df_lags = 0`. Use
+#' `classic_df = TRUE` instead.
+#'
+#' @examples
+#'
+#' set.seed(8675309) # don't want new numbers in documentation every time...
+#'
+#' sim_df_mod(rnorm(25), ts_type = 'ndnt', classic_df = TRUE)
+#'
+#' sim_df_mod(rnorm(25), ts_type = 'ndnt', df_lags = 2, classic_df = FALSE)
+#'
+#' @author Steven V. Miller
+#'
+#' @param x a numeric vector for the length of a series to replicate/simulate
+#' @param ts_type a type of time-series to simulate (either 'ndnt', 'dnt', or 'dt')
+#' @param df_lags a numeric vector for the number of lags to calculate for the test.
+#' @param classic_df logical, defaults to FALSE. If FALSE, the function calculates
+#' an "Augmented" Dickey-Fuller test on a simulated series with the number of lagged
+#' first differences requested in the `df_lags` argument. If `TRUE`, the classic
+#' Dickey-Fuller test is executed without the lagged first differences.
+#' @param wn logical, defaults to FALSE. If FALSE, generates a random
+#' walk of some description for a DF/ADF test. If TRUE, series to be simulated
+#' for a DF/ADF test is white noise.
+#' @export
+
+
+sim_df_mod <- function(x, ts_type, df_lags, classic_df = FALSE, wn = FALSE) {
+
+  if(!ts_type %in% c("ndnt", "dnt", "dt")) {
+    stop("The 'ts_type' argument must be one of 'ndnt' (no drift, no trend), 'dnt', (drift, no trend), or 'dt' (drift and trend)")
+  }
+
+  if(df_lags == 0) {
+    stop("df_lags must be an integer greater than 0. If you want no lagged first differences, toggle `classic_df` to TRUE.")
+  }
+
+  if (!is.null(df_lags) && (df_lags %% 1 != 0 || df_lags < 0)) {
+    stop("df_lags must be a positive integer.")
+
+  }
+
+  length_x <- length(x)
+
+  if(ts_type == 'ndnt') { # ts_type == "ndnt" -----
+
+    fake_x <- sim_ts(length_x, b0 = 0, bt = 0, white_noise = wn)
+
+    f_d_x <- diff(fake_x) # first diffs of fake_x
+    l1_fx <- embed(fake_x, 2)[,2]
+
+    if(classic_df == TRUE) { # * classic_df == TRUE for ts_type == "ndnt" ----
+
+      Mod <- lm(f_d_x ~ l1_fx - 1)    # no drift, no trend
+
+    } else { #  classic_df == FALSE for ts_type == "ndnt" -----
+
+      dflp1 <- df_lags + 1
+
+      fm <- embed(f_d_x, dflp1)
+      d_fx_t <- fm[,1]
+      l1_fx <- fake_x[dflp1:length(f_d_x)]
+
+      adf_diff_lags_fake <- fm[, 2:dflp1]
+      Mod <- lm(d_fx_t ~ l1_fx - 1 + adf_diff_lags_fake)    # no drift, no trend
+
+    }
+
+  } else if(ts_type == 'dnt') { # ts_type == 'dnt'
+
+    # I like the idea of generating this from a Rademacher distribution
+    fake_b0 <- 2 * stats::rbinom(n = 1, size = 1, prob = 0.5) - 1
+    # The above is the faithful way of doing it, but this should work too.
+    # sample(c(-1, 1), size=1, prob = c(.5, .5))
+
+    fake_x <- sim_ts(length_x, fake_b0, bt = 0, white_noise = wn)
+
+    f_d_x <- diff(fake_x) # first diffs of fake_x
+    l1_fx <- embed(fake_x, 2)[,2]
+
+    if(classic_df == TRUE) { # * classic_df == TRUE for ts_type == "dnt" ----
+
+      Mod <- lm(f_d_x ~ l1_fx)    # drift, no trend
+
+    } else { #  classic_df == FALSE for ts_type == "dnt" -----
+
+      dflp1 <- df_lags + 1
+
+      fm <- embed(f_d_x, dflp1)
+      d_fx_t <- fm[,1]
+      l1_fx <- fake_x[dflp1:length(f_d_x)]
+
+      adf_diff_lags_fake <- fm[, 2:dflp1]
+      Mod <- lm(d_fx_t ~ l1_fx  + adf_diff_lags_fake)    # drift, no trend
+
+    }
+
+  } else { # drift and trend
+
+    # I like the idea of generating this from a Rademacher distribution
+    fake_b0 <- 2 * stats::rbinom(n = 1, size = 1, prob = 0.5) - 1
+    # This needs to be subtle, otherwise the time trend devours the drift.
+    # ...this is hacky, but it's just about everything I've seen in pedagogy
+    #  that does address this...
+    fake_bt <- fake_b0/10
+
+    fake_x <- sim_ts(length_x, b0 = fake_b0, bt = fake_bt, white_noise = wn)
+
+    f_d_x <- diff(fake_x) # first diffs of fake_x
+    l1_fx <- embed(fake_x, 2)[,2]
+
+
+    if(classic_df == TRUE) { # * classic_df == TRUE for ts_type == "dt" ----
+
+      ft <- 1:length(f_d_x)
+      Mod <- lm(f_d_x ~ l1_fx + ft)    # drift and trend
+
+    } else { #  classic_df == FALSE for ts_type == "dt" -----
+
+      dflp1 <- df_lags + 1
+
+      fm <- embed(f_d_x, dflp1)
+      d_fx_t <- fm[,1]
+      l1_fx <- fake_x[dflp1:length(f_d_x)]
+      ft <- 1:length(d_fx_t)
+
+      adf_diff_lags_fake <- fm[, 2:dflp1]
+      Mod <- lm(d_fx_t ~ l1_fx  + ft + adf_diff_lags_fake)    # drift and trend
+
+    }
+
+  }
+
+  return(Mod)
+
+}

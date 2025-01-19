@@ -3,6 +3,8 @@
 Updates across the board, including:
 
 - Clarified/updated functionality to `spp_test()`.
+- `sim_ts()` is a function for simulating time series, mostly used internally.
+- `sim_df_mod()` is a function for simulating Dickey-Fuller statistics, mostly used internally.
 - `sadf_test()` does the (Augmented) Dickey-Fuller test with simulated critical values.
 - `adf_lag_select()` helps the user identify potentially optimal lag selection for (Augmented) Dickey-Fuller tests.
 - `ur_summary()` provides a more straightforward function to summarize unit root tests produced in this package.

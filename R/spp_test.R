@@ -23,6 +23,7 @@
 #' Phillips-Perron test. The short-term lag uses the default number of
 #' Newey-West lags, defined as the floor of 4*(n/100)^.25 where `n` is the length
 #' of the time series. The long-term lag substitutes 4 for 12 in this equation.
+#' We have Schwert (1989) to thank for these defaults.
 #'
 #' This function specifies three different types of tests: 1) no drift, no trend,
 #' 2) drift, no trend, and 3) drift and trend. In the language of the `lm()`
