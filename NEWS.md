@@ -8,7 +8,7 @@ Updates across the board, including:
 - `sadf_test()` does the (Augmented) Dickey-Fuller test with simulated critical values.
 - `adf_lag_select()` helps the user identify potentially optimal lag selection for (Augmented) Dickey-Fuller tests.
 - `ur_summary()` provides a more straightforward function to summarize unit root tests produced in this package.
-- `USDICE`, `tbills`, `exCopdab`, and `money_demand` are toy data sets now included in this package.
+- `USDICE`, `tbills`, `exCopdab`, `lag_suggests`, and `money_demand` are toy data sets now included in this package.
 
 # sTSD 0.1.0
 

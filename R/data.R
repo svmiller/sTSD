@@ -138,9 +138,12 @@
 #' hard about doing any of this if your time series is so finite that it has
 #' fewer than 25 observations.
 #'
-#' The Qiu et al. (2013) suggestion is what is the default lag if you're using
+#' The Qiu et al. (2013) suggestion is the default lag if you're using
 #' the \pkg{aTSA} package. It is almost equivalent to the Schwert (1989) lower
-#' bound, except the length of the series is raised to 2/9 and not 2/8.
+#' bound, except the length of the series is raised to 2/9 and not 2/8. The two
+#' do not meaningfully separate until the length of the series reaches 5,720
+#' observations (which is when the difference between two reaches two lags of
+#' separation).
 #'
 #' @references
 #'
@@ -155,3 +158,4 @@
 #' Schwert, G. William. 1989. "Tests for Unit Roots: A Monte Carlo Investigation".
 #' *Journal of Business & Economic Statistics* 7(2): 147--59.
 #'
+"lag_suggests"
