@@ -125,7 +125,8 @@ that its robust to various forms of heteroskedasticity in the error term.</p>
 <p>The short-term and long-term lags follow the convention introduced in the
 Phillips-Perron test. The short-term lag uses the default number of
 Newey-West lags, defined as the floor of 4*(n/100)^.25 where <code>n</code> is the length
-of the time series. The long-term lag substitutes 4 for 12 in this equation.</p>
+of the time series. The long-term lag substitutes 4 for 12 in this equation.
+We have Schwert (1989) to thank for these defaults.</p>
 <p>This function specifies three different types of tests: 1) no drift, no trend,
 2) drift, no trend, and 3) drift and trend. In the language of the <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code>
 function, the first is <code>lm(y ~ ly - 1)</code> where <code>y</code> is the value of <code>y</code> and
@@ -169,87 +170,87 @@ statistics.</p>
 <span class="r-in"><span><span class="fu">spp_test</span><span class="op">(</span><span class="va">a</span>, n_sims <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $stats</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -27.33738 -4.989217</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -27.37505 -4.891018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -30.05658 -5.717812</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -27.13585 -5.936353</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -27.12847 -6.100783</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -26.83813 -6.054596</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sims</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           z_rho       z_tau sim                cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   -0.76193257 -0.45327841   1 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   -4.19786958 -1.43229335   1    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -16.92749527 -3.38637319   1    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   -0.03709477 -0.02060497   2 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   -0.95804358 -0.52558260   2    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  -14.87705704 -3.79128833   2    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   -1.37787407 -0.86663638   3 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   -3.39878336 -1.74250861   3    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -11.62766673 -2.63054568   3    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 -17.23448127 -3.56203792   4 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 -17.45321487 -3.54269783   4    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 -15.44004124 -3.29792690   4    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  -3.88791078 -1.36575230   5 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  -6.19198839 -1.77666418   5    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 -19.95809251 -3.63125323   5    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  -6.57373337 -2.00113088   6 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 -13.07924414 -3.29507684   6    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -12.79831116 -2.69800929   6    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  -2.27829636 -0.97863778   7 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  -2.30943862 -0.91584312   7    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 -12.50690211 -2.70538984   7    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  -1.98438449 -0.99792929   8 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  -4.02111935 -1.52982436   8    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  -3.33786186 -1.40558542   8    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25   0.32696041  0.40754845   9 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  -6.15643055 -2.95459617   9    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  -8.23996855 -2.12235602   9    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28   2.07479117  1.68218939  10 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29   0.85353199  0.47779642  10    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  -7.02525218 -1.87373475  10    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31  -0.60163414 -0.51703950  11 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32  -7.21595570 -2.40161631  11    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 -10.18649048 -2.36042617  11    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34  -0.10795436 -0.14020805  12 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35  -4.96910176 -2.34288923  12    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36  -8.13516597 -1.88652973  12    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37  -0.97140889 -0.51678599  13 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38  -1.84113106 -0.90578220  13    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39  -9.47779291 -2.67605666  13    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40   1.14225668  1.16131076  14 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41  -0.51306027 -0.39092093  14    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42 -13.69938740 -2.94693644  14    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43   0.56642114  0.66820339  15 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  -1.37051355 -0.98129107  15    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45  -9.53595607 -2.31501193  15    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46  -1.11543747 -0.39157246  16 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47  -2.76878519 -0.88046974  16    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48  -1.41748297 -0.69184925  16    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49   0.34171197  0.21806951  17 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50  -2.91480292 -1.27407207  17    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51 -12.21750862 -2.60516948  17    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52  -4.79367109 -1.64556820  18 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53  -8.39407877 -2.09856462  18    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54  -5.83136029 -1.46300970  18    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55  -0.33462622 -0.14857752  19 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56  -3.01290406 -0.96408476  19    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 -18.17988709 -3.60334190  19    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58  -3.95705239 -1.45471836  20 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59  -9.22777593 -2.33390624  20    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60  -8.54042702 -1.92780252  20    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61   1.62222738  0.68177848  21 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62  -0.67901539 -0.19997935  21    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63 -11.49376380 -2.51094964  21    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64  -0.31056639 -0.25060570  22 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65  -9.26526902 -2.64229630  22    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66 -12.49596265 -2.60571792  22    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67  -3.05659158 -1.15453427  23 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68  -9.22341380 -2.24546132  23    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69  -9.49030268 -2.55404527  23    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70  -0.19733544 -0.16700540  24 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71  -8.40317911 -3.62216092  24    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72  -7.59464351 -1.94056431  24    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73  -0.05773743 -0.06019397  25 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74  -4.46315272 -1.80966837  25    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75 -15.34784472 -2.52801412  25    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   -2.82861295 -1.22214393   1 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   -6.45295200 -1.98190002   1    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -15.67503152 -3.95472279   1    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   -5.21221813 -1.62458532   2 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   -5.08748670 -1.54378739   2    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   -2.78371754 -1.00326730   2    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1.13483923  1.99997739   3 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   -0.46914230 -0.53837696   3    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -11.30257013 -2.46371591   3    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   0.48733892  0.38061494   4 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  -1.61666512 -0.88654502   4    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 -11.94953589 -2.77783733   4    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  -0.52177555 -0.40088708   5 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  -8.73230063 -3.43721159   5    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  -3.23930206 -1.27895875   5    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  -5.03962964 -1.49498542   6 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  -4.95612618 -1.47226191   6    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  -4.81933941 -1.12715319   6    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  -1.97464138 -1.00780012   7 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  -7.71435158 -2.02535164   7    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 -17.55785589 -4.36653913   7    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 -15.02935495 -3.32645752   8 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 -15.62685653 -3.46961159   8    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  -4.65695654 -1.61338366   8    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  -0.58906951 -0.49357437   9 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  -8.27413109 -2.96987298   9    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 -13.03811245 -3.06419187   9    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28   0.05755162  0.05798358  10 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  -4.04690257 -2.17465819  10    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  -7.09034108 -2.25110676  10    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31   1.37808220  1.36710495  11 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  -2.14647854 -1.14752972  11    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  -6.43153145 -1.85968240  11    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  -0.73091816 -0.49096525  12 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  -4.02791809 -1.80104617  12    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  -4.59011030 -1.14879814  12    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  -1.77374508 -0.68310727  13 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38  -2.50393754 -0.88471118  13    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39  -3.26668162 -0.89136201  13    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40  -1.84259666 -0.79603756  14 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 -11.66058884 -2.55425083  14    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42  -9.19982564 -2.20010207  14    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43   0.96355749  2.00989913  15 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  -1.37087319 -1.80430395  15    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45  -3.80809321 -1.12700450  15    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46  -1.05420567 -0.48232439  16 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47  -5.50646924 -1.82859960  16    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48  -7.79745006 -2.90252078  16    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49  -1.39575002 -0.71855444  17 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50  -0.80981386 -0.38274115  17    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51  -7.54223664 -1.95422034  17    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52  -0.44713603 -0.37545526  18 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53  -2.86314767 -1.50815366  18    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 -10.30611161 -2.33257307  18    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55  -9.84169660 -2.17419621  19 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56 -10.85498937 -2.30882376  19    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57 -15.12517176 -3.17027211  19    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58  -2.45742794 -0.89125508  20 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59  -2.30547251 -0.85412930  20    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60 -10.61146915 -2.38367760  20    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61  -2.58777164 -1.12687636  21 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62  -2.96324042 -1.14308156  21    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63  -2.63735385 -0.89461718  21    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64  -8.34807331 -2.06234904  22 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65  -9.56487881 -2.20917590  22    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66  -6.64817372 -1.56047562  22    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67  -1.19314692 -0.75234412  23 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 -13.38406552 -3.81773692  23    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69  -8.46502171 -2.17955084  23    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70   0.49881236  0.70715720  24 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71  -2.16851826 -1.75545110  24    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72  -4.54435817 -1.59360463  24    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73  -1.17285430 -0.64597235  25 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74 -11.14177246 -3.32721355  25    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75 -10.63436580 -2.31647669  25    Drift and Trend</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $attributes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   lags       sim_hyp n_sims  n test</span>
@@ -259,88 +260,88 @@ statistics.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "spp_test"</span>
 <span class="r-in"><span><span class="fu">spp_test</span><span class="op">(</span><span class="va">b</span>, n_sims <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $stats</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1.470509 -0.8571405</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -4.527471 -1.5679908</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -6.987093 -3.9366364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]   1.173118  0.7177936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  -2.699879 -0.7033299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -15.058437 -2.8693332</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sims</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           z_rho       z_tau sim                cat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1.50106127  1.65796630   1 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0.06069731  0.06760178   1    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   -6.45369426 -1.83455954   1    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   -1.36328906 -0.78803672   2 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   -6.60045063 -2.29527892   2    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  -20.12039405 -4.19504643   2    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    0.10059888  0.12157039   3 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   -2.79698907 -1.83115075   3    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   -7.41545031 -1.96809228   3    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  -0.11432083 -0.11821534   4 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  -8.26663457 -3.35106944   4    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  -6.97313980 -1.72468515   4    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 -17.71511647 -3.37941727   5 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 -17.83825513 -3.27595539   5    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  -5.21792843 -1.61086005   5    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  -0.32064934 -0.12943261   6 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  -2.98777936 -0.99120421   6    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -10.05075163 -2.21968827   6    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  -1.81276230 -0.91414779   7 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  -9.45500826 -2.25186412   7    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  -3.18607854 -0.78120055   7    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  -1.67921506 -0.90301128   8 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  -3.37910965 -1.25388027   8    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  -8.80146878 -2.29613094   8    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25   0.42076845  0.42723550   9 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  -1.42472115 -1.23729407   9    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  -8.48147824 -2.18899721   9    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  -2.37959126 -0.90280044  10 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29  -4.07503525 -1.40397762  10    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 -10.84278775 -1.86023973  10    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31   0.03107812  0.03472149  11 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32  -5.47015056 -2.10090235  11    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33  -6.13002199 -2.05217967  11    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34   0.78127701  0.98139883  12 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35  -1.16340681 -0.67723884  12    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 -15.03099452 -3.14454130  12    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37  -0.02679842 -0.02238720  13 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38  -5.07755615 -2.00247436  13    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39  -9.23910807 -2.09528824  13    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40   0.39043561  0.30403986  14 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41  -4.32618645 -2.14420871  14    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42 -14.84048430 -3.05601216  14    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43  -6.56390217 -1.86392098  15 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  -9.12495390 -2.14461542  15    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45  -7.31571612 -1.72177395  15    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46  -0.04256540 -0.02541170  16 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47  -6.55392636 -1.87355213  16    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48  -8.67931691 -2.51868506  16    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49  -2.89485567 -0.94416253  17 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50  -8.99112293 -2.24321260  17    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51  -4.74779709 -1.33929856  17    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52   1.66768333  2.27666460  18 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53  -0.10721729 -0.08551223  18    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 -12.27841126 -2.64478601  18    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55  -0.39809497 -0.30444988  19 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56  -3.37642877 -1.24044394  19    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 -11.10494617 -1.70396401  19    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58  -0.50301990 -0.44796989  20 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59  -4.45746260 -3.20803016  20    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60  -5.22790185 -2.16670644  20    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61  -4.00021020 -1.46501343  21 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62  -9.85891377 -2.44230145  21    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63  -5.07009924 -1.28474237  21    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64  -0.22422235 -0.19947436  22 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65 -11.02873572 -2.93672214  22    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66  -9.09464900 -2.92764789  22    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67  -2.33958877 -0.94207217  23 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68  -7.53865488 -2.25052105  23    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69 -13.43317438 -3.89825632  23    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70   1.63911764  2.53321000  24 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71   0.82351860  0.64067142  24    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72  -6.93357539 -1.84081987  24    Drift and Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73  -0.87627431 -0.59226483  25 No Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74  -5.44696598 -1.91720456  25    Drift, No Trend</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75  -8.88894944 -2.10364780  25    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    2.44006356  2.28389767   1 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1.34762917  0.88848299   1    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   -6.49278202 -1.77518639   1    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0.16396016  0.18478655   2 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   -2.83884146 -2.16295526   2    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   -5.88496580 -1.84019319   2    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   -0.49949351 -0.31196900   3 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  -10.73589622 -2.88833524   3    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   -6.15325781 -2.15052882   3    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1.60816348  2.11225920   4 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  -0.49690254 -0.34096563   4    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  -2.82781117 -1.11737569   4    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  -3.68977592 -1.44760002   5 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  -4.24083001 -1.57813971   5    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  -4.41887270 -1.11370688   5    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   0.33055758  0.32027431   6 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  -1.30883217 -0.98553869   6    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  -9.45426878 -2.35173155   6    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  -3.27365064 -1.45788345   7 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  -4.45722422 -2.36444257   7    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  -5.72415840 -1.32820504   7    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  -7.40443469 -1.96168172   8 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 -13.99779197 -3.47927307   8    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  -9.99155825 -2.30813281   8    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  -2.28602384 -0.93402196   9 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  -1.88524192 -0.63516702   9    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  -5.23815526 -1.51729509   9    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28   1.41567456  2.79629063  10 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29   0.07144525  0.09505365  10    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 -11.35470139 -2.47758872  10    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 -13.97339847 -2.85441976  11 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 -14.37457823 -2.88565023  11    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  -7.49576482 -1.83089209  11    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  -1.33088527 -0.80551949  12 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  -3.66819849 -1.22047917  12    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  -7.95924493 -1.51367519  12    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37 -13.67750749 -2.80072709  13 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 -16.54642042 -3.19010087  13    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 -10.41479792 -2.44111310  13    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40  -1.23874411 -0.47449491  14 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41  -0.43284665 -0.18032917  14    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42   1.12989269  0.62431221  14    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43  -1.04181368 -0.72212623  15 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  -3.80974135 -1.26646579  15    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45  -8.73947901 -2.19211565  15    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46  -1.43920999 -0.78504772  16 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47  -5.42132802 -1.75094905  16    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48  -9.14306933 -2.26064491  16    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49  -1.23476071 -0.54958827  17 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50  -6.16108506 -1.78698235  17    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51  -2.01841191 -0.62930270  17    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52  -4.49115693 -1.49525403  18 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53  -6.81673038 -1.81792611  18    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 -11.40449483 -2.45004204  18    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55   2.29216819  1.96142630  19 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56   1.58898010  1.32389376  19    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57  -6.40688151 -1.58735368  19    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58  -1.38248988 -0.70167176  20 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59  -1.02150001 -0.54890663  20    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60  -5.76522119 -1.84887885  20    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61  -4.36400701 -1.50577777  21 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62  -4.38948547 -1.47624561  21    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63 -12.17341852 -2.71390303  21    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64   0.76276087  0.93232255  22 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65  -1.15672496 -0.92456104  22    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66  -6.17316071 -2.36454980  22    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67  -0.12489080 -0.06503457  23 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68  -3.89471980 -1.26206394  23    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 -11.57172041 -2.63352595  23    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 -11.59989128 -3.02681359  24 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71 -11.96025630 -2.95678198  24    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72  -7.69361347 -1.91596353  24    Drift and Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73   0.02809885  0.03949833  25 No Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74  -5.53114060 -2.85145643  25    Drift, No Trend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75  -7.01937874 -1.78909867  25    Drift and Trend</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $attributes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   lags       sim_hyp n_sims  n test</span>
