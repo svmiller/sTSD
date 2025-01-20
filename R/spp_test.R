@@ -98,7 +98,6 @@
 #' @importFrom stats lm
 #' @importFrom stats resid
 #' @importFrom stats rnorm
-#' @importFrom stats arima.sim
 #' @export
 
 spp_test <- function(x, lag_short = TRUE, n_sims = 1000, sim_hyp = "nonstationary") {
