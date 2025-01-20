@@ -29,9 +29,9 @@ R package.
 install.packages("sTSD")
 ```
 
-You can also install the development version of `{stevedata}` from
-Github via the `{devtools}` package. I suppose using the `{remotes}`
-package would work as well.
+You can also install the development version of `{sTSD}` from Github via
+the `{devtools}` package. I suppose using the `{remotes}` package would
+work as well.
 
 ``` r
 devtools::install_github("svmiller/sTSD")

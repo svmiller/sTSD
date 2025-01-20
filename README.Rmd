@@ -29,7 +29,7 @@ This package is now on CRAN. You can download it as you would any other R packag
 install.packages("sTSD")
 ```
 
-You can also install the development version of `{stevedata}` from Github via the `{devtools}` package. I suppose using the `{remotes}` package would work as well.
+You can also install the development version of `{sTSD}` from Github via the `{devtools}` package. I suppose using the `{remotes}` package would work as well.
 
 ```r
 devtools::install_github("svmiller/sTSD")
