@@ -48,7 +48,7 @@ known, non-stationary time series or a known, white-noise time series
 matching the length of the time series the user provides. This allows the
 user to make assessments of non-stationarity or stationarity by way of
 simulation rather than approximation from received critical values by way of
-books or tables some years out of date.
+various books/tables.
 }
 \details{
 Some knowledge of Augmented Dickey-Fuller and the Phillips-Perron

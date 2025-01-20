@@ -3,6 +3,7 @@
 Updates across the board, including:
 
 - Clarified/updated functionality to `spp_test()`.
+- `skpss_test()` performs the KPSS test with simulated critical values.
 - `sim_ts()` is a function for simulating time series, mostly used internally.
 - `sim_df_mod()` is a function for simulating Dickey-Fuller statistics, mostly used internally.
 - `sadf_test()` does the (Augmented) Dickey-Fuller test with simulated critical values.

@@ -31,7 +31,7 @@
 #'
 #' @author Steven V. Miller
 #'
-#' @param x a numeric vector for the length of a series to replicate/simulate
+#' @param x a numeric vector corresponding to a series to replicate/simulate
 #' @param ts_type a type of time-series to simulate (either 'ndnt', 'dnt', or 'dt')
 #' @param df_lags a numeric vector for the number of lags to calculate for the test.
 #' @param classic_df logical, defaults to FALSE. If FALSE, the function calculates

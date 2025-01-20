@@ -7,7 +7,7 @@
 sim_df_mod(x, ts_type, df_lags = NULL, classic_df = FALSE, wn = FALSE)
 }
 \arguments{
-\item{x}{a numeric vector for the length of a series to replicate/simulate}
+\item{x}{a numeric vector corresponding to a series to replicate/simulate}
 
 \item{ts_type}{a type of time-series to simulate (either 'ndnt', 'dnt', or 'dt')}
 

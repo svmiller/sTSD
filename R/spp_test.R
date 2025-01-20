@@ -10,7 +10,7 @@
 #' matching the length of the time series the user provides. This allows the
 #' user to make assessments of non-stationarity or stationarity by way of
 #' simulation rather than approximation from received critical values by way of
-#' books or tables some years out of date.
+#' various books/tables.
 #'
 #' @details Some knowledge of Augmented Dickey-Fuller and the Phillips-Perron
 #' procedure is assumed here. Generally, the Phillips-Perron test purports to
@@ -101,8 +101,7 @@
 #' @importFrom stats arima.sim
 #' @export
 
-spp_test <- function(x, lag_short = TRUE, n_sims = 1000,
-                     sim_hyp = "nonstationary") {
+spp_test <- function(x, lag_short = TRUE, n_sims = 1000, sim_hyp = "nonstationary") {
 
 
   if(!sim_hyp %in% c("stationary", "nonstationary")) {
@@ -129,6 +128,8 @@ spp_test <- function(x, lag_short = TRUE, n_sims = 1000,
     q <-  floor(12*(n/100)^0.25)
   }
 
+
+
   calc_pp <- function(mod, m) {
     index <- ifelse(m > 1, 2, 1)
     resids <- resid(mod)
@@ -148,25 +149,70 @@ spp_test <- function(x, lag_short = TRUE, n_sims = 1000,
   }
 
 
+
+
   Stats <- rbind(calc_pp(M1,1),
                  calc_pp(M2,2),
                  calc_pp(M3,3))
 
 
+  # * Simulations ----
   Sims <- data.frame()
-  if(sim_hyp == "stationary") {
+
+  if(sim_hyp == "stationary") { # * If sim_hyp == "stationary ----
+
     for (i in 1:n_sims) {
-      fake_x <- rnorm(length(x))
 
-      fm <- embed(fake_x, 2)
-      fdat <- data.frame(y = fm[, 1], ly = fm[, 2])
-      fdat$t <- 1:length(fdat$y)
+      #fake_x <- rnorm(length(x))
+      # fake_x <- sim_ts(length(x), b0 = 0, bt = 0, white_noise = wn)
 
-      fn <- length(fdat$y)
 
-      fM1 <- lm(y ~ ly - 1, fdat) # no drift, no trend
-      fM2 <- lm(y ~ ly, fdat) # drift, no trend
-      fM3 <- lm(y ~ ly + t, fdat) # drift and trend
+      time <- 1:length(x)
+      nd_nt <- sim_ts(length(x), b0 = 0, bt = 0, white_noise = TRUE)
+
+      fake_b0 <- 2 * stats::rbinom(n = 1, size = 1, prob = 0.5) - 1
+      d_nt <- sim_ts(length(x), b0 = fake_b0, bt = 0, white_noise = TRUE)
+
+      fake_bt <- fake_b0/10
+      d_t <- sim_ts(length(x), b0 = fake_b0, bt = fake_bt, white_noise = TRUE)
+
+
+      # okie doke, this could get tedious.
+      # Let's do it for the first one...
+
+      fm_nd_nt <- embed(nd_nt, 2)
+      fdat_nd_nt <- data.frame(y = fm_nd_nt[, 1], ly = fm_nd_nt[, 2])
+      fdat_nd_nt$t <- 1:length(fdat_nd_nt$y)
+
+      fn_nd_nt <- length(fdat_nd_nt$y)
+
+      fM1 <- lm(y ~ ly - 1, fdat_nd_nt) # no drift, no trend
+
+      # The second one...
+
+      fm_d_nt <- embed(d_nt, 2)
+      fdat_d_nt <- data.frame(y = fm_d_nt[, 1], ly = fm_d_nt[, 2])
+      fdat_d_nt$t <- 1:length(fdat_d_nt$y)
+
+      fn_d_nt <- length(fdat_d_nt$y)
+
+      fM2 <- lm(y ~ ly, fdat_nd_nt) # drift, no trend
+
+
+      # The third one...
+
+      fm_d_t <- embed(d_t, 2)
+      fdat_d_t <- data.frame(y = fm_d_t[, 1], ly = fm_d_t[, 2])
+      fdat_d_t$t <- 1:length(fdat_d_t$y)
+
+      fn_d_t <- length(fdat_d_t$y)
+
+      fM3 <- lm(y ~ ly + t, fdat_d_t) # drift and trend
+
+
+      # fM1 <- lm(y ~ ly - 1, fdat) # no drift, no trend
+      # fM2 <- lm(y ~ ly, fdat) # drift, no trend
+      # fM3 <- lm(y ~ ly + t, fdat) # drift and trend
 
       fakeStats <- rbind(calc_pp(fM1, 1),
                          calc_pp(fM2, 2),
@@ -182,19 +228,20 @@ spp_test <- function(x, lag_short = TRUE, n_sims = 1000,
 
 
     }
-  } else { # Assuming we're going to simulate non-stationary data.
+  } else { # * else if sim_hyp == "non-stationary" ----
     for (i in 1:n_sims) {
 
       fake_x <- rnorm(length(x))
       time <- 1:length(x)
 
-      nd_nt <- cumsum(fake_x)
-      d_nt <- cumsum(2 + fake_x)
-      # d_t <- cumsum(rnorm(length(x), mean = time,
-      #                     sd = sqrt(time)))
+      nd_nt <- sim_ts(length(x), b0 = 0, bt = 0, white_noise = FALSE)
 
-      #d_t <- 1/sqrt(time)*cumsum(fake_x)
-      d_t <- as.vector(arima.sim(n = length(x), model = list(ar = .99)))
+      fake_b0 <- 2 * stats::rbinom(n = 1, size = 1, prob = 0.5) - 1
+      d_nt <- sim_ts(length(x), b0 = fake_b0, bt = 0, white_noise = FALSE)
+
+      fake_bt <- fake_b0/10
+      d_t <- sim_ts(length(x), b0 = fake_b0, bt = fake_bt, white_noise = FALSE)
+
 
       # okie doke, this could get tedious.
       # Let's do it for the first one...

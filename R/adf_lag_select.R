@@ -43,11 +43,10 @@
 #' x <- head(tbills$tb3m, 500)
 #' adf_lag_select(x)
 #'
-#' @importFrom stats embed
-#' @importFrom stats lm
-#' @importFrom stats resid
-#' @importFrom stats rnorm
-#' @importFrom stats arima.sim
+#' @importFrom stats AIC
+#' @importFrom stats BIC
+#' @importFrom stats nobs
+#' @importFrom stats var
 #' @export
 
 adf_lag_select <- function(x, min_lag = 0,
