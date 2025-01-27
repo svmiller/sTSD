@@ -53,16 +53,19 @@ various books/tables.
 \details{
 Some knowledge of Augmented Dickey-Fuller and the Phillips-Perron
 procedure is assumed here. Generally, the Phillips-Perron test purports to
-build on the Augmented Dickey-Fuller procedure through two primary means. The
-first is relaxing the need to specify or assume lag structures ad hoc or ex
-ante. Only a short-term lag or long-term lag are necessary. The second is
-that its robust to various forms of heteroskedasticity in the error term.
+build on the Augmented Dickey-Fuller (ADF) procedure through two primary
+means. The first is relaxing the need to be as deliberate about lag structures
+as ADF is, typically asking for some kind of long- or short-term lag for the
+bandwidth/kernel. The second, related to this, is that its nonparametric
+procedure makes it robust to various forms of heteroskedasticity in the error
+term.
 
 The short-term and long-term lags follow the convention introduced in the
 Phillips-Perron test. The short-term lag uses the default number of
 Newey-West lags, defined as the floor of 4*(n/100)^.25 where \code{n} is the length
 of the time series. The long-term lag substitutes 4 for 12 in this equation.
-We have Schwert (1989) to thank for these defaults.
+We have Schwert (1989) to thank for these defaults. Future iterations of this
+function may permit manual lag selection, but this is fine for now.
 
 This function specifies three different types of tests: 1) no drift, no trend,
 2) drift, no trend, and 3) drift and trend. In the language of the \code{lm()}

@@ -108,7 +108,7 @@ statistics.
 }
 \examples{
 
-y <- na.omit(USDSEK[1:500,])$close
+y <- na.omit(USDSEK[1:500,])$close # there is one missing value here. n = 499.
 
 
 sadf_test(y, n_sims = 25) # Doing 25, just to make it quick

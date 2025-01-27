@@ -56,9 +56,9 @@ As of writing, the default lags are those suggested by Schwert (1989) to
 apply to the Bartlett kernel generating the KPSS test statistic (eta).
 
 \pkg{aTSA} has a particularly interesting approach to this test that draws on
-on insights seemingly proposed by Hobijn et al. (2004). Future updates to
-this function may propose those, but this function, as is, performs calculations
-of eta identical to what \pkg{tseries} or \pkg{urca} would produce. Right now,
+on insights seemingly proposed by Hobijn et al. (2004). Future updates may
+include those, but this function, as is, performs calculations of eta
+identical to what \pkg{tseries} or \pkg{urca} would produce. Right now,
 I don't have the time or energy to get into the weeds of what Hobijn et al.
 (2004) are doing or what \pkg{aTSA} is implementing, but it seems pretty cool.
 
